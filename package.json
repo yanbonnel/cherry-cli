@@ -1,0 +1,24 @@
+{
+  "name": "cherry-cli",
+  "version": "1.0.0",
+  "description": "CLI for the cherrypush app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cherrypush/cherry-cli.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cherrypush/cherry-cli/issues"
+  },
+  "homepage": "https://github.com/cherrypush/cherry-cli#readme",
+  "dependencies": {
+    "commander": "^9.4.1",
+    "glob": "^8.0.3",
+    "n-readlines": "^1.0.1"
+  }
+}
