@@ -6,8 +6,8 @@ import Codeowners from "./owners.js";
 
 const repos = new Codeowners();
 
-export const findOccurences = () => {
-  const occurrences = {};
+export const findOccurrences = () => {
+  const occurrences = [];
   const files = glob.sync("**/*.js", {
     ignore: "node_modules/**",
     nodir: true,
@@ -15,16 +15,17 @@ export const findOccurences = () => {
 
   files.forEach((filePath) => {
     Object.entries(configuration).forEach(([metricName, configuration]) => {
-      occurrences[metricName] = occurrences[metricName] || [];
       readlines(filePath, (line, lineNumber) => {
         if (!line.match(configuration.pattern)) return;
 
-        occurrences[metricName].push({
-          sha: "1234567890",
+        occurrences.push({
+          commit_sha: "1234567890", // TODO: extract current commit sha
           file_path: filePath,
           line_number: lineNumber,
           line_content: line.trim(),
+          repo: "cherrypush/cherry-cli", // TODO: add repo to configuration file
           owners: repos.getOwner(filePath),
+          metric_name: metricName,
         });
       });
     });
