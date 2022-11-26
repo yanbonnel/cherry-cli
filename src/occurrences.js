@@ -1,17 +1,14 @@
 import { getRepo, getMetrics } from './configuration.js'
-import glob from 'glob'
 import { readlines } from './readlines.js'
 import Codeowners from './owners.js'
+import getTrackedFiles from './tracked_files.js'
 
 const owners = new Codeowners()
 
 export const findOccurrences = (configuration) => {
   const occurrences = []
   const metrics = getMetrics(configuration)
-  const files = glob.sync('**/*', {
-    ignore: ['node_modules/**', 'tmp/**', 'log/**'], // TODO: we should also ignore ignored files from the project
-    nodir: true,
-  })
+  const files = getTrackedFiles()
 
   files.forEach((filePath) => {
     metrics.forEach(({ name, pattern }) => {
