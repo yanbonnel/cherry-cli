@@ -9,7 +9,7 @@ export const findOccurrences = (configuration) => {
   const occurrences = []
   const metrics = getMetrics(configuration)
   const files = glob.sync('**/*', {
-    ignore: 'node_modules/**', // TODO: we should also ignore ignored files from the project
+    ignore: ['node_modules/**', 'tmp/**', 'log/**'], // TODO: we should also ignore ignored files from the project
     nodir: true,
   })
 

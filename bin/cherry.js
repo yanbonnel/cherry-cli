@@ -10,6 +10,8 @@ const API_BASE_URL = 'https://www.cherrypush.com/api'
 program.command('run').action((options) => {
   const occurrences = findOccurrences(configuration)
   console.log(occurrences)
+  console.log(`There are ${occurrences.length} occurrences ready to be reported.`)
+  console.log('Run `cherry push` to push them to your public dashboard.')
 })
 
 program.command('push').action((options) => {
