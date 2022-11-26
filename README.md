@@ -1,7 +1,7 @@
 # Installation
 
 ```bash
-npm i -g cherry-cli
+npm install -g cherry-cli
 ```
 
 # Usage
