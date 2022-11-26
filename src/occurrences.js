@@ -1,36 +1,35 @@
-import { getRepo, getMetrics } from "./configuration.js";
-import glob from "glob";
-import { readlines } from "./readlines.js";
+import { getRepo, getMetrics } from './configuration.js'
+import glob from 'glob'
+import { readlines } from './readlines.js'
+import Codeowners from './owners.js'
 
-import Codeowners from "./owners.js";
-
-const repos = new Codeowners();
+const owners = new Codeowners()
 
 export const findOccurrences = (configuration) => {
-  const occurrences = [];
-  const metrics = getMetrics(configuration);
-  const files = glob.sync("**/*.js", {
-    ignore: "node_modules/**",
+  const occurrences = []
+  const metrics = getMetrics(configuration)
+  const files = glob.sync('**/*', {
+    ignore: 'node_modules/**', // TODO: we should also ignore ignored files from the project
     nodir: true,
-  });
+  })
 
   files.forEach((filePath) => {
     metrics.forEach(({ name, pattern }) => {
       readlines(filePath, (line, lineNumber) => {
-        if (!line.match(pattern)) return;
+        if (!line.match(pattern)) return
 
         occurrences.push({
-          commit_sha: "1234567890", // TODO: extract current commit sha
+          commit_sha: 'master', // TODO: use current commit sha instead
           file_path: filePath,
           line_number: lineNumber,
-          line_content: line.trim(),
+          line_content: line.trim().slice(0, 120).replace(/\0/, ''),
           repo: getRepo(configuration),
-          owners: repos.getOwner(filePath),
+          owners: owners.getOwner(filePath),
           metric_name: name,
-        });
-      });
-    });
-  });
+        })
+      })
+    })
+  })
 
-  return occurrences;
-};
+  return occurrences
+}
