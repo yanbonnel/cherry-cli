@@ -5,7 +5,7 @@ import { program } from 'commander'
 import { findOccurrences } from '../src/occurrences.js'
 import { configuration } from '../src/configuration.js'
 
-const API_BASE_URL = 'http://localhost:3000/api' // TODO: convert to production url
+const API_BASE_URL = 'https://www.cherrypush.com/api'
 
 program.command('run').action((options) => {
   const occurrences = findOccurrences(configuration)
