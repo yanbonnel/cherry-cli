@@ -1,13 +1,13 @@
-import lineByLine from "n-readlines";
+import lineByLine from 'n-readlines'
 
 export const readlines = (path, callback) => {
-  const liner = new lineByLine(path);
+  const liner = new lineByLine(path)
 
-  let lineNumber = 1;
-  let lineBuffer;
+  let lineNumber = 1
+  let lineBuffer
   while ((lineBuffer = liner.next())) {
-    const line = lineBuffer.toString();
-    callback(line, lineNumber);
-    lineNumber++;
+    const line = lineBuffer.toString()
+    callback(line, lineNumber)
+    lineNumber++
   }
-};
+}
