@@ -10,7 +10,7 @@ export const findOccurrences = (configuration) => {
   const metrics = getMetrics(configuration)
 
   const sha = git.sha()
-  git.trackedFiles().forEach((filePath) => {
+  git.files().forEach((filePath) => {
     metrics.forEach(({ name, pattern }) => {
       readlines(filePath, (line, lineNumber) => {
         if (!line.match(pattern)) return
