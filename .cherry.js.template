@@ -1,0 +1,9 @@
+export default {
+  repo: 'PROJECT_NAME',
+  metrics: [
+    {
+      name: 'todos',
+      pattern: /TODO:/,
+    },
+  ],
+}
