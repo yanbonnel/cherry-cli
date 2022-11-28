@@ -25,23 +25,19 @@ program.command('init').action(async () => {
   console.log('.cherry.js file successfully created! You can now run `cherry run` to test it')
 })
 
-program.command('run').action(async () => {
-  const configuration = await getConfiguration()
-  const occurrences = findOccurrences(configuration)
-  console.log(occurrences)
-  console.log(`There are ${occurrences.length} occurrences ready to be reported.`)
-  console.log('Run `cherry push` to push them to your public dashboard.')
-})
-
-program.command('store')
-  .option('-f, --file [file]', 'Specify output file (default cherry.json)')
-  .option('-p --pretty', 'Prettify output (default false)')
-  .action((options) => {
-    const outputFile = options.file || 'cherry.json'
-    const pretty = !!options.pretty
-    const occurrences = findOccurrences(configuration)
-    console.log(`Saving ${occurrences.length} occurrences...`)
-    fs.writeFileSync(outputFile, JSON.stringify(occurrences, null, pretty ? 4 : undefined))
+program.command('run')
+  .option('-o, --outputfile [outputfile]', 'Specify output file')
+  .action(async (options) => {
+    const configuration = await getConfiguration()
+    const occurrences = findOccurrences(configuration, options.outputfile)
+    if (options.outputfile) {
+      fs.writeFileSync(options.outputfile, JSON.stringify(occurrences))
+      console.log(`Output saved to ${options.outputfile}`)
+    } else {
+      console.log(occurrences)
+    }
+    console.log(`There are ${occurrences.length} occurrences ready to be reported.`)
+    console.log('Run `cherry push` to push them to your public dashboard.')
   })
 
 program.command('push').action(async () => {
